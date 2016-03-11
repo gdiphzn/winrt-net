@@ -62,7 +62,7 @@ import net from 'net';
 var client = net.connect(22112, 'localhost')
 client.write('Hello server')
 client.on('data', function (data) {
-	console.log('received data, data.toString());
+	console.log('received data', data.toString());
 })
 ```
 
