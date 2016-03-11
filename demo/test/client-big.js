@@ -12,7 +12,7 @@ System.register(['net'], function (_export, _context) {
 
 			socket.connect(port, 'localhost', function () {
 				console.log('# connected to server!, sending big message');
-				socket.write(''.padLeft(1000000, ' '));
+				socket.write(''.padLeft(1000000, '-'));
 			});
 
 			socket.on('connect', function () {

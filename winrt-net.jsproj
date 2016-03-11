@@ -69,7 +69,6 @@
     <Content Include="jspm.browser.js" />
     <Content Include="jspm.browser2.js" />
     <Content Include="jspm.config.js" />
-    <Content Include="jspm_packages\system-csp-production.js" />
     <None Include="winrt-net_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />

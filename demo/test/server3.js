@@ -16,11 +16,8 @@ System.register(['net'], function (_export, _context) {
 				socket.write('here\'s second message');
 				setTimeout(function () {
 					socket.write('and this is the third message...');
-				}, 20);
-				setTimeout(function () {
-					console.log('disconnecting client');
 					socket.end();
-				}, 3000);
+				}, 20);
 
 				socket.on('data', function (data) {
 					console.log('# socket data |', data.length, '|', data.toString().trim());

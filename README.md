@@ -33,6 +33,44 @@ map: {
 
 and that forces JSPM to load this module whenever there is `require('net')` or `import net from 'net'` in your code or dependencies. It also uses the original Node `net` if you run your code in Node through `jspm run`. (more on that in chapter Building & Testing)
 
+### Usage
+
+Example TCP client:
+```js
+import net from 'net';
+import net from 'net';
+
+
+var port = 22112;
+
+var server = net.createServer(function(socket) {
+	console.log('connection', socket.remoteAddress + ":" + socket.remotePort);
+	socket.on('data', function (data) {
+		console.log(data.toString())
+	})
+})
+.listen(port)
+.on('listening', function () {
+  console.log('listening')
+});
+```
+
+Example TCP server:
+```js
+import net from 'net';
+
+var client = net.connect(22112, 'localhost')
+client.write('Hello server')
+client.on('data', function (data) {
+	console.log('received data, data.toString());
+})
+```
+
+Or you can skip step 2) and just use `import net from 'winrt-net';`
+
+See nodejs.org for full API documentation: [net](https://nodejs.org/api/net.html)
+
+
 ## Keep in mind
 ### supporting other platforms
 If you write Chrome Packaged App you are probbably looking or similar module [`chrome-net`](https://github.com/feross/chrome-net).

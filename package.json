@@ -1,6 +1,6 @@
 {
   "name": "winrt-net",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WinRT (Windows App) wrapper for node net module",
   "author": "Mike Kovařík <kenr.mk@gmail.com>",
   "license": "ISC",

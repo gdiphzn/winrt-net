@@ -1,3 +1,15 @@
+if (typeof navigator == 'object') {
+	// logs console.log calls into Apps DOM
+	var $pre = document.querySelector('pre');
+	var _log = console.log;
+	console.log = function() {
+		var args = Array.from(arguments);
+		$pre.textContent += '\n' + args.join(' ');
+		// note: this only works when app is connected to a Visual Studio Debbugers, otherwise crashes the App
+		//_log.apply(null, args);
+	}
+}
+
 //System.import('demo/demo.js');
 //System.import('demo/test/client1.js');
 //System.import('demo/test/client2.js');
@@ -27,15 +39,3 @@ System.import('demo/test/client-reconnect2.js');
 //System.import('demo/test/server-echo-pipe.js');
 //System.import('demo/test/server-close.js');
 //System.import('demo/test/server-reconnect.js');
-
-if (typeof navigator == 'object') {
-	// logs console.log calls into Apps DOM
-	var $pre = document.querySelector('pre');
-	var _log = console.log;
-	console.log = function() {
-		var args = Array.from(arguments);
-		$pre.textContent += '\n' + args.join(' ');
-		// note: this only works when app is connected to a Visual Studio Debbugers, otherwise crashes the App
-		//_log.apply(null, args);
-	}
-}
