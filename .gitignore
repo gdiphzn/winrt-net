@@ -25,6 +25,12 @@ build/Release
 
 # Dependency directory
 node_modules
+jspm_packages
+
+# Demo app build files
+.vs
+bin
+bld
 
 # Optional npm cache directory
 .npm

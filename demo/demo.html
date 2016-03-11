@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>winrt-net</title>
+	<link href="demo.css" rel="stylesheet" />
+</head>
+<body class="win-type-body">
+
+	<div layout>
+		<!--div>
+			<div>
+				<label for="hostNameConnect">Port</label>
+				<input id="port" type="text" class="win-textbox">
+			</div>
+			<div>
+				<label for="hostNameConnect">IP</label>
+				<input id="ip" type="text" class="win-textbox">
+			</div>
+			<br>
+			<div>
+				<button id="connect" class="win-button">Connect</button>
+				<button id="listen" class="win-button">Listen</button>
+			</div>
+			<div>
+				<button id="end" class="win-button">end</button>
+				<button id="stop" class="win-button">stop</button>
+			</div>
+			<img>
+		</div-->
+		<pre flex></pre>
+	</div>
+
+	<!--
+	Temporary hack: Edge's implementation of promises is very slow
+	It's being workeed on - see https://www.danyow.net/edge-promise-perf/
+	and https://wpdev.uservoice.com/forums/257854-microsoft-edge-developer/suggestions/11329845-improve-promise-implementation-performance
+	TODO: Delete bluebird dependency when Windows Redstone is released
+	-->
+	<script src="bluebird.min.js"></script>
+
+	<script src="../jspm_packages/system-csp-production.js"></script>
+	<script src="../jspm.browser.js"></script>
+	<script src="../jspm.config.js"></script>
+
+	<!-- little hack for loading proper modules during testing -->
+	<script src="../jspm.browser2.js"></script>
+	<!-- bundle of dependencies from JSPM for demo -->
+	<script src="demo-bundle-dependencies.js"></script>
+	<!-- couldn't inline the System.import due to CSP -->
+	<script src="run.js"></script>
+</body>
+</html>

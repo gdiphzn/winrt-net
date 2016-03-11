@@ -1,0 +1,23 @@
+﻿body {
+	padding: 20px;
+    background-color: #000;
+    color: #FFF;
+    font-family: Segoe UI;
+}
+
+/*[layout] {
+	display: flex;
+}
+[flex] {
+	flex: 1;
+}
+label {
+	display: block;
+}*/
+pre {
+	margin: 0;
+	padding-left: 20px;
+	font-family: Consolas;
+	font-size: 13px;
+	line-height: 12px;
+}
