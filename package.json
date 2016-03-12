@@ -1,9 +1,9 @@
 {
   "name": "winrt-net",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "WinRT (Windows App) wrapper for node net module",
   "author": "Mike Kovařík <kenr.mk@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/KenRmk/winrt-net"
@@ -57,34 +57,6 @@
   "map": {
     "./lib/net.js": {
       "node": "@node/net"
-    }
-  },
-  "jspm": {
-    "name": "winrt-net",
-    "dependencies": {
-      "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
-      "events": "github:jspm/nodelibs-events@^0.1.1"
-    },
-    "devDependencies": {},
-    "peerDependencies": {
-      "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
-      "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
-      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
-      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
-      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
-      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
-      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
-      "stream": "github:jspm/nodelibs-stream@^0.1.0",
-      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
-      "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
-      "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
-    },
-    "overrides": {
-      "npm:inherits@2.0.1": {
-        "ignore": [
-          "test.js"
-        ]
-      }
     }
   }
 }

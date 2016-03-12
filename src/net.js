@@ -25,8 +25,6 @@ export class Socket extends Duplex {
 	destroyed = false;
 	_hadError = false;
 	_handle = null;
-	// 35536 is max size of data the chunk could read from stream at once
-	// (it's not just a random value. Was measured with Node.js)
 	_maxChunkLength = 65536; // 64kB
 
 	localAddress = undefined;

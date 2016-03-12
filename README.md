@@ -95,7 +95,7 @@ Some things are not (yet) implemented. Namelly
 
 ## Contribution
 
-I'll be using this module in my projects and fixing bugs along the way but I'd really appreciate  your help and will gladly accept issues, pull requests or even full blown contributor
+I'll be using this module in my projects and fixing bugs along the way but I'd really appreciate your help and will gladly accept issues, pull requests, or even someone being a full blown contributor
 
 ## JSPM & Browserify
 This project was built for and tested using JSPM.
