@@ -38,8 +38,6 @@ and that forces JSPM to load this module whenever there is `require('net')` or `
 Example TCP client:
 ```js
 import net from 'net';
-import net from 'net';
-
 
 var port = 22112;
 
