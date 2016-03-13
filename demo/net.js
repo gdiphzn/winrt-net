@@ -137,16 +137,19 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 				};
 			}();
 
-			DataWriter = Windows.Storage.Streams.DataWriter;
-			DataReader = Windows.Storage.Streams.DataReader;
-			StreamSocketListener = Windows.Networking.Sockets.StreamSocketListener;
-			StreamSocket = Windows.Networking.Sockets.StreamSocket;
+			if (typeof Windows != 'undefined') {
+				DataWriter = Windows.Storage.Streams.DataWriter;
+				DataReader = Windows.Storage.Streams.DataReader;
+				StreamSocketListener = Windows.Networking.Sockets.StreamSocketListener;
+				StreamSocket = Windows.Networking.Sockets.StreamSocket;
+			}
+
+			///////////////////////////////////////////////////////////////////////
+			/////////////////////////// SOCKET ////////////////////////////////////
+			///////////////////////////////////////////////////////////////////////
 
 			_export('Socket', Socket = function (_Duplex) {
 				_inherits(Socket, _Duplex);
-
-				// 35536 is max size of data the chunk could read from stream at once
-				// (it's not just a random value. Was measured with Node.js)
 
 				function Socket(options) {
 					var _ret;

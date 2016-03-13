@@ -11,7 +11,7 @@ jspm install npm:winrt-net
 ```
 ### 2) Rename `winrt-net` to `net` in your SystemJS/JSPM config file
 #### Why?
-JSPM has it's own module that gets installed whenever you or your dependecy uses `net` module. And it does next to nothing because browsers don't do TCP.
+JSPM has its own module that gets installed whenever you or your dependecy uses `net` module. And it does next to nothing because browsers don't do TCP.
 #### how?
 In JSPM config file there is property `map` with names and mappings of all modules. This is an example of JSPM 0.17 `jspm.config.js`
 

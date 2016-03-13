@@ -4,11 +4,16 @@ import {Duplex} from 'stream';
 import process from 'process';
 
 
-var DataWriter = Windows.Storage.Streams.DataWriter;
-var DataReader = Windows.Storage.Streams.DataReader;
-var StreamSocketListener = Windows.Networking.Sockets.StreamSocketListener;
-var StreamSocket = Windows.Networking.Sockets.StreamSocket;
-
+// JSPM will execute this module even when in not WinRT enviroment
+// which causes troubles with flexus-net module running in Chrome Apps.
+// Wrapped for interacting with WinRT APIs onlny in WinRT.
+var DataWriter, DataReader, StreamSocketListener, StreamSocket;
+if (typeof Windows != 'undefined') {
+	DataWriter = Windows.Storage.Streams.DataWriter;
+	DataReader = Windows.Storage.Streams.DataReader;
+	StreamSocketListener = Windows.Networking.Sockets.StreamSocketListener;
+	StreamSocket = Windows.Networking.Sockets.StreamSocket;
+}
 
 
 ///////////////////////////////////////////////////////////////////////
