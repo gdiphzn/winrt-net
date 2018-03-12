@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'buffer', 'stream'], function (_export, _context) {
+	"use strict";
+
 	var net, Buffer, stream, _createClass, port, socket, UpperCaseTransformStream, BufferStream;
 
 	function _classCallCheck(instance, Constructor) {
@@ -142,7 +144,7 @@ System.register(['net', 'buffer', 'stream'], function (_export, _context) {
 				function UpperCaseTransformStream() {
 					_classCallCheck(this, UpperCaseTransformStream);
 
-					return _possibleConstructorReturn(this, Object.getPrototypeOf(UpperCaseTransformStream).apply(this, arguments));
+					return _possibleConstructorReturn(this, (UpperCaseTransformStream.__proto__ || Object.getPrototypeOf(UpperCaseTransformStream)).apply(this, arguments));
 				}
 
 				_createClass(UpperCaseTransformStream, [{
@@ -163,7 +165,7 @@ System.register(['net', 'buffer', 'stream'], function (_export, _context) {
 				function BufferStream(source) {
 					_classCallCheck(this, BufferStream);
 
-					var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(BufferStream).call(this));
+					var _this2 = _possibleConstructorReturn(this, (BufferStream.__proto__ || Object.getPrototypeOf(BufferStream)).call(this));
 
 					if (!Buffer.isBuffer(source)) {
 						throw new Error('Source must be a buffer.');

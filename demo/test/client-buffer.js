@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'buffer', 'stream'], function (_export, _context) {
+	"use strict";
+
 	var net, Buffer, stream, port, buf1, buf2, buf3, buf4, buf5, arr, buf6, buf7, buf8, msg9, socket;
 	return {
 		setters: [function (_net) {

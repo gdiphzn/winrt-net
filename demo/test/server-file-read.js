@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'fs'], function (_export, _context) {
+	"use strict";
+
 	var net, fs, port, server;
 	return {
 		setters: [function (_net) {
@@ -19,6 +21,7 @@ System.register(['net', 'fs'], function (_export, _context) {
 				//var filename = basepath + 'Square150x150Logo.scale-200.png';
 				//var filename = basepath + 'Square44x44Logo.targetsize-24_altform-unplated.png';
 				//var filename = basepath + 'foo.png';
+
 
 				fs.readFile(filename, function (err, data) {
 					console.log('file read', data.length);

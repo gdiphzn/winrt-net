@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'buffer', 'stream'], function (_export, _context) {
+	"use strict";
+
 	var net, Buffer, stream, _createClass, port, socket, consoleLogWriteStream, UpperCaseTransformStream;
 
 	function _classCallCheck(instance, Constructor) {
@@ -92,7 +94,7 @@ System.register(['net', 'buffer', 'stream'], function (_export, _context) {
 				function consoleLogWriteStream() {
 					_classCallCheck(this, consoleLogWriteStream);
 
-					return _possibleConstructorReturn(this, Object.getPrototypeOf(consoleLogWriteStream).apply(this, arguments));
+					return _possibleConstructorReturn(this, (consoleLogWriteStream.__proto__ || Object.getPrototypeOf(consoleLogWriteStream)).apply(this, arguments));
 				}
 
 				_createClass(consoleLogWriteStream, [{
@@ -111,7 +113,7 @@ System.register(['net', 'buffer', 'stream'], function (_export, _context) {
 				function UpperCaseTransformStream() {
 					_classCallCheck(this, UpperCaseTransformStream);
 
-					return _possibleConstructorReturn(this, Object.getPrototypeOf(UpperCaseTransformStream).apply(this, arguments));
+					return _possibleConstructorReturn(this, (UpperCaseTransformStream.__proto__ || Object.getPrototypeOf(UpperCaseTransformStream)).apply(this, arguments));
 				}
 
 				_createClass(UpperCaseTransformStream, [{

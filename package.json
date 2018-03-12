@@ -39,6 +39,7 @@
     "events": "^1.1.0"
   },
   "scripts": {
+    "gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -54,9 +55,15 @@
     "jspm": "^0.17.0-beta.9"
   },
   "main": "./lib/net.js",
+  "jspm": {
+    "name": "winrt-net",
+    "dependencies": {},
+    "devDependencies": {}
+  },
   "map": {
     "./lib/net.js": {
       "node": "@node/net"
     }
   }
 }
+

@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'fs'], function (_export, _context) {
+	"use strict";
+
 	var net, fs, port, socket;
 	return {
 		setters: [function (_net) {

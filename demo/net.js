@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['events', 'buffer', 'stream', 'process'], function (_export, _context) {
+	"use strict";
+
 	var EventEmitter, Buffer, Duplex, process, _typeof, _createClass, DataWriter, DataReader, StreamSocketListener, StreamSocket, Socket, Server, errorCodes, connect, createConnection, IPv4Regex, IPv6Regex, isIPv4, isIPv6, isIP;
 
 	function _classCallCheck(instance, Constructor) {
@@ -41,22 +43,21 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 		self.emit('error', err);
 		self._destroy();
 	}
+
 	function emitErrorNT(self, err) {
 		self.emit('error', err);
 	}
+
 	function emitListeningNT(self) {
 		// ensure handle hasn't closed
 		if (self._handle) {
 			self.emit('listening');
 		}
 	}
+
 	function emitCloseNT(self) {
 		self.emit('close');
 	}
-
-	// (Connection reset by peer): A connection was forcibly closed by a peer.
-	//EACCES (Permission denied): An attempt was made to access a file in a way forbidden by its file access permissions.
-
 
 	function errnoException(err, syscall, address, port) {
 		var errname;
@@ -79,6 +80,12 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 		}
 		return e;
 	}
+
+	function createServer(options, connectionListener) {
+		return new Server(options, connectionListener);
+	}
+
+	_export('createServer', createServer);
 
 	// Returns an array [options] or [options, cb]
 	// It is the same as the argument of Socket.prototype.connect().
@@ -116,7 +123,7 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 			_typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
 				return typeof obj;
 			} : function (obj) {
-				return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+				return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 			};
 
 			_createClass = function () {
@@ -137,6 +144,12 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 				};
 			}();
 
+			DataWriter = void 0;
+			DataReader = void 0;
+			StreamSocketListener = void 0;
+			StreamSocket = void 0;
+
+
 			if (typeof Windows != 'undefined') {
 				DataWriter = Windows.Storage.Streams.DataWriter;
 				DataReader = Windows.Storage.Streams.DataReader;
@@ -156,7 +169,7 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 
 					_classCallCheck(this, Socket);
 
-					var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Socket).call(this));
+					var _this = _possibleConstructorReturn(this, (Socket.__proto__ || Object.getPrototypeOf(Socket)).call(this));
 
 					_this._connecting = false;
 					_this._connected = false;
@@ -213,8 +226,8 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 						if (options.pauseOnCreate) {
 							// TODO
 						} else {
-								_this.read(0);
-							}
+							_this.read(0);
+						}
 					}
 					return _this;
 				}
@@ -335,13 +348,13 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 
 						//if (this._connected && this.readable) {
 						//if (this.readable) {
-						if (this._reader && this.readable) {
-							// sets up data listener and calls _onRead if (what a surprise) data is received
-							var thing = this._reader.loadAsync(this._maxChunkLength);
-							thing.done(this._onRead, function (err) {
-								return _this3._onError(err, 'read');
-							});
-						}
+						if (!this._reader || !this.readable) return;
+
+						// sets up data listener and calls _onRead if data is received
+						var thing = this._reader.loadAsync(this._maxChunkLength);
+						thing.done(this._onRead, function (err) {
+							return _this3._onError(err, 'read');
+						});
 					}
 				}, {
 					key: '_onRead',
@@ -353,7 +366,13 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 							this.end();
 							return;
 						}
+
+						// For some reason this._reader is null sometimes...
+						// TODO: Investigate if our tcp application code is not handling reconnection correctly
+						if (!this._reader || !this.readable) return;
+
 						this.bytesRead += chunkBytesRead;
+
 						// received some data, load the into Node-like Buffer (Uint8 typed array) and emit
 						var buffer = new Buffer(chunkBytesRead);
 						this._reader.readBytes(buffer);
@@ -473,7 +492,7 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 						// cancelIOAsync might call the callback synchronously if there's no pending read/write
 						// but it needs to be async - to properly react to errors (Error: write after end).
 						// Also .end() (unlike .destroy() ) gives reader/writer some head start to finish reading.
-						// Writer has to stop sending whatever is in buffer and send FIN packet to gracefuly close connection.
+						// Writer has to stop sending whatever is in buffer and send FIN packet to gracefuly close connection. 
 						setImmediate(function () {
 							if (_this7._handle == null) {
 								return;
@@ -638,7 +657,7 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 
 					_classCallCheck(this, Server);
 
-					var _this10 = _possibleConstructorReturn(this, Object.getPrototypeOf(Server).call(this));
+					var _this10 = _possibleConstructorReturn(this, (Server.__proto__ || Object.getPrototypeOf(Server)).call(this));
 
 					_this10._host = null;
 					_this10._connections = 0;
@@ -814,13 +833,10 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 				'-2147013895': 'ENOENT',
 				'-2147014848': 'EADDRINUSE', // (Address already in use): An attempt to bind a server (net, http, or https) to a local address failed due to another server on the local system already occupying that address.
 				'-2147014836': 'ETIMEDOUT',
-				'?': 'ECONNREFUSED', // TODO (Connection refused): No connection could be made because the target machine actively refused it.
-				'-2147014842': 'ECONNRESET' };
-			function createServer(options, connectionListener) {
-				return new Server(options, connectionListener);
-			}
-
-			_export('createServer', createServer);
+				'?': 'ECONNREFUSED', // TODO (Connection refused): No connection could be made because the target machine actively refused it. 
+				'-2147014842': 'ECONNRESET' // (Connection reset by peer): A connection was forcibly closed by a peer. 
+				//EACCES (Permission denied): An attempt was made to access a file in a way forbidden by its file access permissions.
+			};
 
 			_export('connect', connect = function connect() {
 				for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -844,6 +860,8 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 				connect: connect,
 				Socket: Socket,
 				Server: Server
+
+				// Source: https://developers.google.com/web/fundamentals/input/form/provide-real-time-validation#use-these-attributes-to-validate-input
 			});
 
 			IPv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;

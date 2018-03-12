@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['net', 'buffer'], function (_export, _context) {
+	"use strict";
+
 	var net, Buffer, $pre, $connect, $listen, $end, $stop, $ip, $port, $img, port, ip, socket, dropZone;
 
 	function handleDragOver(e) {
