@@ -3,11 +3,11 @@ import {Buffer} from 'buffer';
 import {Duplex} from 'stream';
 import process from 'process';
 
-
 // JSPM will execute this module even when in not WinRT enviroment
 // which causes troubles with flexus-net module running in Chrome Apps.
 // Wrapped for interacting with WinRT APIs onlny in WinRT.
-var DataWriter, DataReader, StreamSocketListener, StreamSocket;
+let DataWriter, DataReader, StreamSocketListener, StreamSocket;
+
 if (typeof Windows != 'undefined') {
 	DataWriter = Windows.Storage.Streams.DataWriter;
 	DataReader = Windows.Storage.Streams.DataReader;
@@ -15,13 +15,9 @@ if (typeof Windows != 'undefined') {
 	StreamSocket = Windows.Networking.Sockets.StreamSocket;
 }
 
-
 ///////////////////////////////////////////////////////////////////////
 /////////////////////////// SOCKET ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-
-
 
 export class Socket extends Duplex {
 
@@ -188,11 +184,12 @@ export class Socket extends Duplex {
 	_readChunk() {
 		//if (this._connected && this.readable) {
 		//if (this.readable) {
-		if (this._reader && this.readable) {
-			// sets up data listener and calls _onRead if (what a surprise) data is received
-			var thing = this._reader.loadAsync(this._maxChunkLength)
-			thing.done(this._onRead, err => this._onError(err, 'read'));
-		}
+		if (!this._reader || !this.readable)
+			return;
+
+		// sets up data listener and calls _onRead if data is received
+		var thing = this._reader.loadAsync(this._maxChunkLength)
+		thing.done(this._onRead, err => this._onError(err, 'read'));
 	}
 	_onRead(chunkBytesRead) {
 		if (chunkBytesRead == 0) {
@@ -200,7 +197,14 @@ export class Socket extends Duplex {
 			this.end();
 			return;
 		}
+		
+		// For some reason this._reader is null sometimes...
+		// TODO: Investigate if our tcp application code is not handling reconnection correctly
+		if(!this._reader || !this.readable)
+			return;
+
 		this.bytesRead += chunkBytesRead;
+
 		// received some data, load the into Node-like Buffer (Uint8 typed array) and emit
 		var buffer = new Buffer(chunkBytesRead);
 		this._reader.readBytes(buffer);
@@ -447,16 +451,9 @@ export class Socket extends Duplex {
 
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////
 /////////////////////////// SERVER ////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 export class Server extends EventEmitter {
 
@@ -611,33 +608,29 @@ export class Server extends EventEmitter {
 
 }
 
-
-
-
 ///////////////////////////////////////////////////////////////////////
 /////////////////////////// HELPER FUNCTIONS //////////////////////////
 ///////////////////////////////////////////////////////////////////////
-
-
-
 
 function connectErrorNT(self, err) {
 	self.emit('error', err);
 	self._destroy();
 }
+
 function emitErrorNT(self, err) {
 	self.emit('error', err);
 }
+
 function emitListeningNT(self) {
 	// ensure handle hasn't closed
 	if (self._handle) {
 		self.emit('listening');
 	}
 }
+
 function emitCloseNT(self) {
 	self.emit('close');
 }
-
 
 var errorCodes = {
 	'-2147014835': 'ECONNREFUSED',
@@ -712,7 +705,6 @@ export default {
 	Socket,
 	Server
 }
-
 
 // Source: https://developers.google.com/web/fundamentals/input/form/provide-real-time-validation#use-these-attributes-to-validate-input
 var IPv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
