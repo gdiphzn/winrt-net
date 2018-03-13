@@ -57,7 +57,10 @@
   "main": "./lib/net.js",
   "jspm": {
     "name": "winrt-net",
-    "dependencies": {},
+    "dependencies": {
+      "buffer": "^4.5.0",
+      "events": "^1.1.0"
+    },
     "devDependencies": {}
   },
   "map": {
