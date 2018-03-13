@@ -373,14 +373,15 @@ export class Socket extends Duplex {
 	}
 
 	_write(chunk, encoding, done) {
-		if (!done) done = () => {}
+		if (!done)
+			done = () => {}
 
 		if (this._connecting) {
 			this.once('connect', () => this._write(chunk, encoding, done));
 			return;
 		}
 
-		if (this.writable) {
+		if (this._writer && this.writable) {
 			this._writer.writeBytes(chunk);
 			// note: don't pass callback as rference! oh boy those contexts...
 			this._writer.storeAsync().done(() => {

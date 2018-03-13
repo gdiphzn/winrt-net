@@ -560,7 +560,7 @@ System.register(['events', 'buffer', 'stream', 'process'], function (_export, _c
 							return;
 						}
 
-						if (this.writable) {
+						if (this._writer && this.writable) {
 							this._writer.writeBytes(chunk);
 							// note: don't pass callback as rference! oh boy those contexts...
 							this._writer.storeAsync().done(function () {
