@@ -58,8 +58,8 @@
   "jspm": {
     "name": "winrt-net",
     "dependencies": {
-      "buffer": "^4.5.0",
-      "events": "^1.1.0"
+      "buffer": "npm:buffer@^4.5.0",
+      "events": "npm:events@^1.1.0"
     },
     "devDependencies": {}
   },
